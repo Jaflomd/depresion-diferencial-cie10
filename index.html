@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico diferencial de depresión · CIE-10</title>
+  <style>
+    /* ===========================================
+       VIEWPORT FITTING: MANDATORY BASE STYLES
+       Include this ENTIRE file in every presentation.
+       These styles ensure slides fit exactly in the viewport.
+       =========================================== */
+
+    /* 1. Lock html/body to viewport */
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+
+    /* 2. Each slide = exact viewport height */
+    .slide {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
+        overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* 3. Content container with flex for centering */
+    .slide-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-height: 100%;
+        overflow: hidden; /* Double-protection against overflow */
+        padding: var(--slide-padding);
+    }
+
+    /* 4. ALL typography uses clamp() for responsive scaling */
+    :root {
+        /* Titles scale from mobile to desktop */
+        --title-size: clamp(1.5rem, 5vw, 4rem);
+        --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+        --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+
+        /* Body text */
+        --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+        --small-size: clamp(0.65rem, 1vw, 0.875rem);
+
+        /* Spacing scales with viewport */
+        --slide-padding: clamp(1rem, 4vw, 4rem);
+        --content-gap: clamp(0.5rem, 2vw, 2rem);
+        --element-gap: clamp(0.25rem, 1vw, 1rem);
+    }
+
+    /* 5. Cards/containers use viewport-relative max sizes */
+    .card, .container, .content-box {
+        max-width: min(90vw, 1000px);
+        max-height: min(80vh, 700px);
+    }
+
+    /* 6. Lists auto-scale with viewport */
+    .feature-list, .bullet-list {
+        gap: clamp(0.4rem, 1vh, 1rem);
+    }
+
+    .feature-list li, .bullet-list li {
+        font-size: var(--body-size);
+        line-height: 1.4;
+    }
+
+    /* 7. Grids adapt to available space */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    /* 8. Images constrained to viewport */
+    img, .image-container {
+        max-width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+    }
+
+    /* ===========================================
+       RESPONSIVE BREAKPOINTS
+       Aggressive scaling for smaller viewports
+       =========================================== */
+
+    /* Short viewports (< 700px height) */
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+            --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+            --h2-size: clamp(1rem, 3vw, 1.75rem);
+        }
+    }
+
+    /* Very short viewports (< 600px height) */
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+            --title-size: clamp(1.1rem, 4vw, 2rem);
+            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        }
+
+        /* Hide non-essential elements */
+        .nav-dots, .keyboard-hint, .decorative {
+            display: none;
+        }
+    }
+
+    /* Extremely short (landscape phones, < 500px height) */
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(1rem, 3.5vw, 1.5rem);
+            --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+            --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        }
+    }
+
+    /* Narrow viewports (< 600px width) */
+    @media (max-width: 600px) {
+        :root {
+            --title-size: clamp(1.25rem, 7vw, 2.5rem);
+        }
+
+        /* Stack grids vertically */
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ===========================================
+       REDUCED MOTION
+       Respect user preferences
+       =========================================== */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    /* ===========================================
+       THEME
+       =========================================== */
+    :root {
+      --navy: #17406d;
+      --navy-dark: #0d2c4d;
+      --blue: #0f6fc6;
+      --blue-2: #009dd9;
+      --teal: #0bd0d9;
+      --green: #10cf9b;
+      --green-2: #7cca62;
+      --lime: #a5c249;
+      --orange: #f49100;
+      --mint: #85dfd0;
+      --ice: #dbeff9;
+      --ink: #1d2d3d;
+      --muted: #5b6b7b;
+      --soft: #f5f9fc;
+      --white: #ffffff;
+      --danger: #d9314a;
+      --ok: #0f9f6e;
+      --line: rgba(23, 64, 109, 0.18);
+      --slide-padding: clamp(1.1rem, 4vw, 4rem);
+      --title-size: clamp(2rem, 5.5vw, 4.7rem);
+      --h2-size: clamp(1.45rem, 3.4vw, 3rem);
+      --h3-size: clamp(1rem, 2vw, 1.55rem);
+      --body-size: clamp(0.86rem, 1.35vw, 1.08rem);
+      --small-size: clamp(0.64rem, 0.95vw, 0.86rem);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-normal: 0.55s;
+      --shadow: 0 18px 44px rgba(12, 32, 54, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #263746;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .slide {
+      background:
+        linear-gradient(113deg, rgba(23, 64, 109, 0.045) 0 58%, transparent 58%),
+        linear-gradient(116deg, transparent 0 77%, rgba(219, 239, 249, 0.98) 77% 100%),
+        var(--white);
+      isolation: isolate;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      right: -14vw;
+      top: 0;
+      width: clamp(14rem, 32vw, 31rem);
+      height: 100%;
+      background: linear-gradient(180deg, var(--blue-2), var(--green));
+      clip-path: polygon(42% 0, 100% 0, 100% 100%, 0 100%);
+      opacity: 0.92;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .slide-content {
+      gap: clamp(0.8rem, 2vh, 1.45rem);
+      padding-top: clamp(4.4rem, 11vh, 6.2rem);
+      padding-bottom: clamp(2.8rem, 7vh, 4.4rem);
+    }
+
+    .cover {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--white);
+    }
+
+    .cover::after {
+      right: -10vw;
+      width: clamp(18rem, 42vw, 41rem);
+      opacity: 1;
+    }
+
+    .cover .slide-content {
+      max-width: min(70vw, 820px);
+      align-items: flex-start;
+    }
+
+    .closing {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--white);
+    }
+
+    .closing::after {
+      top: auto;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 32vh;
+      clip-path: polygon(0 62%, 100% 0, 100% 100%, 0 100%);
+      opacity: 0.92;
+    }
+
+    .brandbar {
+      position: absolute;
+      top: clamp(0.9rem, 3.2vh, 1.9rem);
+      left: clamp(1rem, 4.4vw, 3.5rem);
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(0.45rem, 1vw, 0.75rem);
+      min-height: clamp(2rem, 4vh, 2.6rem);
+      padding: clamp(0.42rem, 0.9vh, 0.58rem) clamp(0.65rem, 1.3vw, 0.9rem);
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(12, 32, 54, 0.14);
+      color: var(--navy);
+      font-size: clamp(0.62rem, 0.9vw, 0.82rem);
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: clamp(1.1rem, 2.1vw, 1.65rem);
+      height: clamp(1.1rem, 2.1vw, 1.65rem);
+      border-left: clamp(0.26rem, 0.7vw, 0.44rem) solid var(--danger);
+      border-right: clamp(0.26rem, 0.7vw, 0.44rem) solid var(--danger);
+      background: var(--white);
+    }
+
+    .footer {
+      position: absolute;
+      left: clamp(1rem, 4.4vw, 3.5rem);
+      right: clamp(1rem, 4.4vw, 3.5rem);
+      bottom: clamp(0.72rem, 2.6vh, 1.6rem);
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: clamp(0.58rem, 0.8vw, 0.78rem);
+      line-height: 1.2;
+    }
+
+    .cover .footer,
+    .closing .footer {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .pg {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: clamp(1.4rem, 2.5vw, 1.85rem);
+      height: clamp(1.4rem, 2.5vw, 1.85rem);
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .cover .pg,
+    .closing .pg {
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 950px;
+      color: var(--navy);
+      font-size: var(--title-size);
+      line-height: 1.02;
+      font-weight: 900;
+    }
+
+    .cover h1,
+    .closing h1 {
+      color: var(--white);
+    }
+
+    h2 {
+      max-width: 940px;
+      color: var(--navy);
+      font-size: var(--h2-size);
+      line-height: 1.06;
+      font-weight: 900;
+    }
+
+    h3 {
+      color: var(--navy);
+      font-size: var(--h3-size);
+      line-height: 1.16;
+      font-weight: 850;
+    }
+
+    p {
+      max-width: 850px;
+      font-size: var(--body-size);
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .cover p,
+    .closing p {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: clamp(0.35rem, 0.8vw, 0.55rem);
+      color: var(--orange);
+      font-size: clamp(0.64rem, 0.95vw, 0.86rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: clamp(1.5rem, 4vw, 3.4rem);
+      height: 3px;
+      background: currentColor;
+    }
+
+    .cover .kicker,
+    .closing .kicker {
+      color: var(--mint);
+    }
+
+    .lead {
+      font-size: clamp(1rem, 1.7vw, 1.42rem);
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .cover .lead {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.72fr);
+      gap: clamp(1rem, 3vw, 3rem);
+      align-items: center;
+      min-height: 0;
+    }
+
+    .wide-split {
+      grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1fr);
+    }
+
+    .visual {
+      position: relative;
+      display: grid;
+      gap: clamp(0.55rem, 1.4vh, 0.9rem);
+      min-height: 0;
+      padding: clamp(0.8rem, 2vw, 1.45rem);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .visual.plain {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .rule-box {
+      border-left: clamp(0.28rem, 0.8vw, 0.45rem) solid var(--orange);
+      background: rgba(219, 239, 249, 0.72);
+      padding: clamp(0.75rem, 1.8vw, 1.2rem);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .rule-box strong {
+      color: var(--navy);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.5rem, 1.2vw, 0.9rem);
+    }
+
+    .mini-grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mini-grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tile {
+      display: grid;
+      align-content: start;
+      gap: clamp(0.25rem, 0.7vh, 0.45rem);
+      min-height: clamp(5rem, 13vh, 7.2rem);
+      padding: clamp(0.65rem, 1.4vw, 1rem);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .tile strong {
+      color: var(--navy);
+      font-size: clamp(0.84rem, 1.25vw, 1.05rem);
+      line-height: 1.15;
+    }
+
+    .tile span,
+    .tile p {
+      color: var(--muted);
+      font-size: clamp(0.68rem, 1vw, 0.86rem);
+      line-height: 1.3;
+    }
+
+    .tile.ok {
+      border-color: rgba(16, 159, 110, 0.55);
+      background: #edf9f3;
+    }
+
+    .tile.warn {
+      border-color: rgba(244, 145, 0, 0.65);
+      background: #fff7eb;
+    }
+
+    .tile.stop {
+      border-color: rgba(217, 49, 74, 0.4);
+      background: #fff1f3;
+    }
+
+    .code-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-width: clamp(3.1rem, 5vw, 4.2rem);
+      min-height: clamp(1.8rem, 3.2vh, 2.2rem);
+      padding: 0 clamp(0.55rem, 1vw, 0.8rem);
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: clamp(0.76rem, 1vw, 0.9rem);
+      font-weight: 900;
+    }
+
+    .code-pill.alt {
+      background: var(--orange);
+    }
+
+    .code-pill.ok {
+      background: var(--ok);
+    }
+
+    .flow {
+      display: grid;
+      gap: clamp(0.4rem, 1vh, 0.7rem);
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: clamp(2rem, 4vw, 2.8rem) minmax(0, 1fr);
+      gap: clamp(0.5rem, 1vw, 0.8rem);
+      align-items: center;
+      padding: clamp(0.48rem, 1vh, 0.7rem) clamp(0.55rem, 1.1vw, 0.8rem);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--muted);
+      font-size: clamp(0.72rem, 1vw, 0.92rem);
+      line-height: 1.24;
+    }
+
+    .flow-row strong {
+      color: var(--navy);
+    }
+
+    .node-num {
+      display: grid;
+      place-items: center;
+      width: clamp(2rem, 4vw, 2.8rem);
+      height: clamp(2rem, 4vw, 2.8rem);
+      border-radius: 50%;
+      background: var(--ice);
+      color: var(--navy);
+      font-weight: 900;
+    }
+
+    .flow-row.active {
+      border-color: rgba(244, 145, 0, 0.75);
+      background: #fff7eb;
+      color: var(--ink);
+      box-shadow: 0 9px 22px rgba(244, 145, 0, 0.12);
+    }
+
+    .flow-row.active .node-num {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .threshold {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(0.45rem, 1vw, 0.8rem);
+      align-items: stretch;
+    }
+
+    .level {
+      display: grid;
+      align-content: start;
+      gap: clamp(0.3rem, 0.8vh, 0.5rem);
+      min-height: clamp(7rem, 18vh, 10rem);
+      padding: clamp(0.65rem, 1.4vw, 1rem);
+      border-radius: 8px;
+      background: var(--white);
+      border-top: 6px solid var(--blue);
+      box-shadow: 0 9px 22px rgba(12, 32, 54, 0.08);
+    }
+
+    .level:nth-child(2) { border-color: var(--teal); }
+    .level:nth-child(3) { border-color: var(--orange); }
+    .level:nth-child(4) { border-color: var(--danger); }
+
+    .level strong {
+      color: var(--navy);
+      font-size: clamp(0.8rem, 1.1vw, 0.98rem);
+    }
+
+    .level span {
+      color: var(--muted);
+      font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+      line-height: 1.3;
+    }
+
+    .criteria-slide {
+      gap: clamp(0.55rem, 1.25vh, 1rem);
+    }
+
+    .criteria-slide h2 {
+      max-width: 1120px;
+      font-size: clamp(1.35rem, 2.9vw, 2.55rem);
+    }
+
+    .criteria-sheet {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: clamp(0.5rem, 1vw, 0.8rem);
+      width: min(100%, 1120px);
+      min-height: 0;
+    }
+
+    .criteria-panel {
+      display: grid;
+      align-content: start;
+      gap: clamp(0.28rem, 0.7vh, 0.46rem);
+      padding: clamp(0.58rem, 1.15vw, 0.9rem);
+      border-left: 6px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 8px 20px rgba(12, 32, 54, 0.08);
+    }
+
+    .criteria-panel:nth-child(2) { border-color: var(--teal); }
+    .criteria-panel:nth-child(3) { border-color: var(--orange); }
+    .criteria-panel:nth-child(4) { border-color: var(--danger); }
+
+    .criteria-panel h3 {
+      font-size: clamp(0.82rem, 1.25vw, 1.05rem);
+    }
+
+    .criteria-panel ol,
+    .criteria-panel ul {
+      margin: 0;
+      padding-left: clamp(1rem, 1.6vw, 1.35rem);
+      color: var(--muted);
+      font-size: clamp(0.6rem, 0.82vw, 0.78rem);
+      line-height: 1.22;
+    }
+
+    .criteria-panel li + li {
+      margin-top: clamp(0.12rem, 0.35vh, 0.24rem);
+    }
+
+    .criteria-table {
+      display: grid;
+      gap: clamp(0.22rem, 0.5vh, 0.34rem);
+    }
+
+    .criteria-row {
+      display: grid;
+      grid-template-columns: minmax(4.8rem, 0.34fr) minmax(0, 1fr);
+      gap: clamp(0.35rem, 0.8vw, 0.55rem);
+      align-items: center;
+      padding: clamp(0.32rem, 0.75vw, 0.52rem);
+      border-radius: 6px;
+      background: rgba(219, 239, 249, 0.58);
+      color: var(--muted);
+      font-size: clamp(0.58rem, 0.8vw, 0.75rem);
+      line-height: 1.18;
+    }
+
+    .criteria-row strong {
+      color: var(--navy);
+    }
+
+    .compare-table {
+      display: grid;
+      gap: clamp(0.28rem, 0.65vh, 0.48rem);
+      width: min(100%, 1120px);
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: minmax(7rem, 0.34fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(0.5rem, 1vw, 0.8rem);
+      align-items: stretch;
+      padding: clamp(0.42rem, 0.9vw, 0.65rem);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 20px rgba(12, 32, 54, 0.07);
+      color: var(--muted);
+      font-size: clamp(0.58rem, 0.82vw, 0.76rem);
+      line-height: 1.22;
+    }
+
+    .compare-row.header {
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .compare-row strong {
+      color: var(--navy);
+    }
+
+    .compare-row.header strong {
+      color: var(--white);
+    }
+
+    .pyramid-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(24rem, 1fr);
+      gap: clamp(1rem, 3vw, 3rem);
+      align-items: center;
+      min-height: 0;
+    }
+
+    .pyramid-copy {
+      display: grid;
+      gap: clamp(0.75rem, 1.8vh, 1.2rem);
+      align-content: center;
+    }
+
+    .pyramid-visual {
+      display: grid;
+      gap: clamp(0.28rem, 0.7vh, 0.5rem);
+      align-items: center;
+      justify-items: center;
+      width: min(100%, 880px);
+      padding: clamp(0.6rem, 1.3vw, 0.9rem);
+    }
+
+    .pyramid-level {
+      width: var(--w);
+      min-height: clamp(3rem, 8.3vh, 4.45rem);
+      display: grid;
+      grid-template-columns: minmax(4.9rem, 0.24fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(0.4rem, 0.9vw, 0.7rem);
+      padding: clamp(0.45rem, 1vw, 0.7rem) clamp(0.85rem, 1.6vw, 1.2rem);
+      color: var(--white);
+      background: var(--c);
+      clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+      box-shadow: 0 10px 22px rgba(12, 32, 54, 0.1);
+    }
+
+    .pyramid-level strong {
+      font-size: clamp(0.76rem, 1.05vw, 0.95rem);
+      line-height: 1.05;
+    }
+
+    .pyramid-level span {
+      font-size: clamp(0.62rem, 0.88vw, 0.78rem);
+      line-height: 1.15;
+      opacity: 0.92;
+    }
+
+    .pyramid-code {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: clamp(1.7rem, 3.3vh, 2.15rem);
+      padding: 0 clamp(0.45rem, 0.9vw, 0.7rem);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      font-size: clamp(0.66rem, 0.9vw, 0.8rem);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .spectrum-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(23rem, 1fr);
+      gap: clamp(1rem, 3vw, 3rem);
+      align-items: center;
+      min-height: 0;
+    }
+
+    .spectrum-core {
+      display: grid;
+      place-items: center;
+      min-height: clamp(12rem, 43vh, 20rem);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(23, 64, 109, 0.95), rgba(15, 111, 198, 0.82)),
+        var(--navy);
+      color: var(--white);
+      box-shadow: var(--shadow);
+      padding: clamp(1rem, 2.4vw, 1.6rem);
+      text-align: center;
+    }
+
+    .spectrum-core strong {
+      max-width: 11ch;
+      font-size: clamp(1.25rem, 2.4vw, 2.2rem);
+      line-height: 1.02;
+    }
+
+    .spectrum-core span {
+      margin-top: clamp(0.5rem, 1vh, 0.8rem);
+      max-width: 34ch;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(0.72rem, 1vw, 0.9rem);
+      line-height: 1.3;
+    }
+
+    .spectrum-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.48rem, 1vw, 0.75rem);
+    }
+
+    .spectrum-card {
+      display: grid;
+      gap: clamp(0.22rem, 0.55vh, 0.38rem);
+      min-height: clamp(5.5rem, 14vh, 7rem);
+      padding: clamp(0.58rem, 1.15vw, 0.9rem);
+      border-left: 6px solid var(--c);
+      border-radius: 0 8px 8px 0;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 8px 20px rgba(12, 32, 54, 0.08);
+    }
+
+    .spectrum-card strong {
+      color: var(--navy);
+      font-size: clamp(0.76rem, 1.08vw, 0.94rem);
+      line-height: 1.1;
+    }
+
+    .spectrum-card span {
+      color: var(--muted);
+      font-size: clamp(0.6rem, 0.86vw, 0.76rem);
+      line-height: 1.22;
+    }
+
+    .hitop-diagram-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(25rem, 1fr);
+      gap: clamp(1rem, 3vw, 3rem);
+      align-items: center;
+      min-height: 0;
+    }
+
+    .hitop-copy {
+      display: grid;
+      align-content: center;
+      gap: clamp(0.75rem, 1.8vh, 1.15rem);
+    }
+
+    .hitop-diagram-layout h2 {
+      font-size: clamp(1.55rem, 3.2vw, 2.85rem);
+      line-height: 1.05;
+    }
+
+    .hitop-map {
+      position: relative;
+      width: min(100%, 880px);
+      height: clamp(23rem, 61vh, 32rem);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hitop-map::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border: 2px dashed rgba(23, 64, 109, 0.18);
+      border-radius: 50%;
+    }
+
+    .emotion-core {
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: clamp(10rem, 17vw, 14rem);
+      height: clamp(10rem, 17vw, 14rem);
+      padding: clamp(0.75rem, 1.5vw, 1rem);
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 18px 34px rgba(12, 32, 54, 0.22);
+    }
+
+    .emotion-core strong {
+      font-size: clamp(0.9rem, 1.45vw, 1.28rem);
+      line-height: 1.05;
+    }
+
+    .emotion-core span {
+      margin-top: clamp(0.28rem, 0.7vh, 0.42rem);
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(0.58rem, 0.78vw, 0.72rem);
+      line-height: 1.15;
+    }
+
+    .hitop-node {
+      position: absolute;
+      z-index: 5;
+      display: grid;
+      gap: clamp(0.16rem, 0.35vh, 0.28rem);
+      width: clamp(8.6rem, 14vw, 12.5rem);
+      min-height: clamp(4.15rem, 9vh, 5.3rem);
+      padding: clamp(0.42rem, 0.9vw, 0.68rem);
+      border-left: 6px solid var(--c);
+      border-radius: 0 8px 8px 0;
+      background: var(--white);
+      box-shadow: 0 8px 18px rgba(12, 32, 54, 0.1);
+    }
+
+    .hitop-node strong {
+      color: var(--navy);
+      font-size: clamp(0.66rem, 0.92vw, 0.82rem);
+      line-height: 1.05;
+    }
+
+    .hitop-node span {
+      color: var(--muted);
+      font-size: clamp(0.55rem, 0.74vw, 0.68rem);
+      line-height: 1.15;
+    }
+
+    .hitop-spoke {
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      z-index: 2;
+      width: var(--l);
+      height: 2px;
+      background: rgba(23, 64, 109, 0.2);
+      transform: rotate(var(--r));
+      transform-origin: 0 50%;
+    }
+
+    .hitop-gate {
+      position: absolute;
+      left: clamp(0.9rem, 2vw, 1.4rem);
+      right: clamp(0.9rem, 2vw, 1.4rem);
+      bottom: clamp(0.85rem, 2vh, 1.2rem);
+      z-index: 6;
+      display: grid;
+      grid-template-columns: minmax(8rem, 0.38fr) repeat(3, minmax(0, 1fr));
+      gap: clamp(0.36rem, 0.8vw, 0.55rem);
+      align-items: center;
+      padding: clamp(0.46rem, 0.9vw, 0.68rem);
+      border-radius: 8px;
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 10px 20px rgba(244, 145, 0, 0.18);
+    }
+
+    .hitop-gate strong,
+    .hitop-gate span {
+      font-size: clamp(0.58rem, 0.82vw, 0.74rem);
+      line-height: 1.12;
+    }
+
+    .hitop-gate span {
+      display: grid;
+      place-items: center;
+      min-height: clamp(1.65rem, 3.2vh, 2rem);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      font-weight: 900;
+    }
+
+    .hitop-tree-slide {
+      justify-content: center;
+      gap: clamp(0.55rem, 1.35vh, 0.95rem);
+    }
+
+    .hitop-tree-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.34fr);
+      gap: clamp(0.75rem, 2vw, 1.4rem);
+      align-items: end;
+      width: min(100%, 1180px);
+    }
+
+    .hitop-tree-head h2 {
+      max-width: 920px;
+      font-size: clamp(1.35rem, 3vw, 2.7rem);
+      line-height: 1.04;
+    }
+
+    .hitop-note {
+      display: grid;
+      align-content: center;
+      min-height: clamp(3.1rem, 8vh, 4.25rem);
+      padding: clamp(0.55rem, 1vw, 0.8rem);
+      border-left: 6px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      background: rgba(255, 247, 235, 0.96);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: clamp(0.58rem, 0.9vw, 0.78rem);
+      line-height: 1.18;
+    }
+
+    .hitop-tree-board {
+      display: grid;
+      gap: clamp(0.45rem, 1vh, 0.7rem);
+      width: min(100%, 1180px);
+      padding: clamp(0.55rem, 1.1vw, 0.85rem);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hitop-tree-grid {
+      display: grid;
+      grid-template-columns: minmax(4.8rem, 0.36fr) repeat(5, minmax(0, 1fr));
+      grid-template-rows: clamp(2.35rem, 5.7vh, 3.3rem) clamp(2.35rem, 5.7vh, 3.3rem) clamp(2.55rem, 6.2vh, 3.55rem) clamp(4.3rem, 11vh, 5.6rem) clamp(3.2rem, 8.2vh, 4.35rem);
+      gap: clamp(0.28rem, 0.65vw, 0.52rem);
+      align-items: stretch;
+    }
+
+    .tree-label {
+      display: grid;
+      align-content: center;
+      justify-items: end;
+      padding-right: clamp(0.38rem, 0.8vw, 0.62rem);
+      border-right: 2px solid rgba(23, 64, 109, 0.2);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: clamp(0.5rem, 0.78vw, 0.7rem);
+      line-height: 1.05;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .tree-box {
+      position: relative;
+      display: grid;
+      align-content: center;
+      gap: clamp(0.12rem, 0.3vh, 0.22rem);
+      min-width: 0;
+      padding: clamp(0.34rem, 0.75vw, 0.62rem);
+      border: 2px solid rgba(23, 64, 109, 0.18);
+      border-top: 5px solid var(--c, var(--blue));
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--muted);
+      text-align: center;
+      box-shadow: 0 7px 15px rgba(12, 32, 54, 0.06);
+      overflow: hidden;
+    }
+
+    .tree-box strong {
+      color: var(--navy);
+      font-size: clamp(0.58rem, 0.92vw, 0.82rem);
+      line-height: 1.05;
+    }
+
+    .tree-box span {
+      color: var(--muted);
+      font-size: clamp(0.48rem, 0.7vw, 0.64rem);
+      line-height: 1.12;
+    }
+
+    .tree-box.super {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .tree-box.super strong {
+      color: var(--white);
+      font-size: clamp(0.82rem, 1.35vw, 1.12rem);
+    }
+
+    .tree-box.super span {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .tree-box.spectrum {
+      border-top-color: var(--teal);
+      background: rgba(219, 239, 249, 0.56);
+    }
+
+    .tree-box.somato {
+      border-top-color: var(--ok);
+    }
+
+    .tree-box.distress {
+      border-top-color: var(--orange);
+    }
+
+    .tree-box.mania {
+      border-style: dashed;
+      border-top-color: var(--danger);
+      background: #fff7eb;
+    }
+
+    .tree-box.fear {
+      border-top-color: var(--blue);
+    }
+
+    .tree-box.stress {
+      border-top-color: var(--teal);
+    }
+
+    .tree-box.syndrome {
+      background: rgba(12, 32, 54, 0.04);
+      border-top-width: 4px;
+    }
+
+    .hitop-tree-gate {
+      display: grid;
+      grid-template-columns: minmax(8.5rem, 0.42fr) repeat(3, minmax(0, 1fr)) minmax(10rem, 0.55fr);
+      gap: clamp(0.3rem, 0.75vw, 0.5rem);
+      align-items: center;
+      padding: clamp(0.42rem, 0.85vw, 0.62rem);
+      border-radius: 8px;
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 8px 18px rgba(244, 145, 0, 0.14);
+    }
+
+    .hitop-tree-gate strong,
+    .hitop-tree-gate span,
+    .hitop-tree-gate small {
+      font-size: clamp(0.5rem, 0.78vw, 0.7rem);
+      line-height: 1.1;
+    }
+
+    .hitop-tree-gate span {
+      display: grid;
+      place-items: center;
+      min-height: clamp(1.35rem, 3vh, 1.75rem);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      font-weight: 900;
+    }
+
+    .hitop-tree-gate small {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: clamp(0.35rem, 1vw, 0.8rem);
+      align-items: end;
+      min-height: clamp(12rem, 38vh, 18rem);
+    }
+
+    .time-block {
+      position: relative;
+      display: grid;
+      align-content: end;
+      min-height: clamp(6rem, 23vh, 12rem);
+      padding: clamp(0.55rem, 1vw, 0.8rem);
+      border-radius: 8px;
+      background: var(--ice);
+      color: var(--navy);
+      font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+      line-height: 1.25;
+      overflow: hidden;
+    }
+
+    .time-block::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: var(--h);
+      background: linear-gradient(180deg, var(--blue-2), var(--green));
+      opacity: 0.2;
+    }
+
+    .time-block strong,
+    .time-block span {
+      position: relative;
+    }
+
+    .case-box {
+      display: grid;
+      gap: clamp(0.6rem, 1.4vh, 0.9rem);
+      max-width: min(92vw, 1060px);
+      padding: clamp(0.9rem, 2.2vw, 1.4rem);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .case-text {
+      display: grid;
+      gap: clamp(0.35rem, 0.8vh, 0.55rem);
+      padding: clamp(0.7rem, 1.4vw, 1rem);
+      border-left: 6px solid var(--orange);
+      background: rgba(219, 239, 249, 0.65);
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(0.45rem, 1vw, 0.75rem);
+    }
+
+    .choice {
+      min-height: clamp(3rem, 7.5vh, 4.2rem);
+      border: 0;
+      border-radius: 8px;
+      padding: clamp(0.48rem, 1vw, 0.75rem);
+      background: var(--navy);
+      color: var(--white);
+      font: inherit;
+      font-size: clamp(0.68rem, 1vw, 0.92rem);
+      font-weight: 900;
+      line-height: 1.15;
+      cursor: pointer;
+      transition: transform 180ms var(--ease-out-expo), box-shadow 180ms var(--ease-out-expo), background 180ms;
+    }
+
+    .choice:hover,
+    .choice:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(23, 64, 109, 0.22);
+      outline: 3px solid rgba(244, 145, 0, 0.35);
+    }
+
+    .choice.correct {
+      background: var(--ok);
+    }
+
+    .choice.incorrect {
+      background: var(--danger);
+    }
+
+    .feedback {
+      min-height: clamp(4.2rem, 12vh, 6rem);
+      padding: clamp(0.65rem, 1.4vw, 1rem);
+      border-radius: 8px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: clamp(0.75rem, 1.1vw, 0.96rem);
+      line-height: 1.35;
+    }
+
+    .feedback strong {
+      color: var(--mint);
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.55rem, 1.2vw, 0.9rem);
+    }
+
+    .matrix-row {
+      display: grid;
+      gap: clamp(0.35rem, 0.8vh, 0.5rem);
+      min-height: clamp(8rem, 22vh, 11rem);
+      padding: clamp(0.75rem, 1.5vw, 1.1rem);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 10px 24px rgba(12, 32, 54, 0.08);
+    }
+
+    .matrix-row strong {
+      color: var(--navy);
+      font-size: clamp(0.86rem, 1.2vw, 1.04rem);
+    }
+
+    .matrix-row span {
+      color: var(--muted);
+      font-size: clamp(0.7rem, 1vw, 0.88rem);
+      line-height: 1.3;
+    }
+
+    .callout {
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
+      align-items: center;
+      gap: clamp(0.4rem, 1vw, 0.7rem);
+      padding: clamp(0.55rem, 1vw, 0.82rem) clamp(0.7rem, 1.4vw, 1rem);
+      border-radius: 8px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: clamp(0.74rem, 1vw, 0.92rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .callout.warn {
+      background: var(--orange);
+    }
+
+    .callout.ok {
+      background: var(--ok);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, var(--orange), var(--teal), var(--green));
+      transition: width 200ms ease;
+    }
+
+    .nav-dots {
+      position: fixed;
+      right: clamp(0.4rem, 1.2vw, 0.9rem);
+      top: 50%;
+      z-index: 900;
+      display: grid;
+      gap: clamp(0.24rem, 0.8vh, 0.42rem);
+      transform: translateY(-50%);
+    }
+
+    .nav-dots button {
+      width: clamp(0.36rem, 0.8vw, 0.55rem);
+      height: clamp(0.36rem, 0.8vw, 0.55rem);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(23, 64, 109, 0.28);
+      cursor: pointer;
+    }
+
+    .nav-dots button.active {
+      background: var(--orange);
+      transform: scale(1.35);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .slide.visible .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide.visible .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .slide.visible .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .slide.visible .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+    @media (max-width: 860px) {
+      .split,
+      .wide-split {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-grid,
+      .mini-grid.four,
+      .threshold,
+      .choice-grid,
+      .criteria-sheet {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .matrix,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        min-height: 0;
+      }
+
+      .time-block {
+        min-height: clamp(3rem, 8vh, 4.5rem);
+      }
+    }
+
+    @media (max-height: 620px) {
+      .slide-content {
+        padding-top: clamp(3.2rem, 9vh, 4.6rem);
+        padding-bottom: clamp(2.2rem, 6vh, 3rem);
+      }
+
+      .tile,
+      .level,
+      .matrix-row,
+      .criteria-panel {
+        min-height: auto;
+      }
+
+      .footer {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-bar" aria-hidden="true"></div>
+  <nav class="nav-dots" aria-label="Navegación de diapositivas"></nav>
+
+  <section class="slide cover">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Rotación MINSA · CIE-10</span>
+      <h1 class="reveal">Diagnóstico diferencial categorial de depresión</h1>
+      <p class="lead reveal">No hay código sin umbral documentado.</p>
+      <span class="callout warn reveal">Para primer nivel y CSMC · 45 minutos</span>
+    </div>
+    <footer class="footer"><span>Fuente base: OMS CIE-10, 1992</span><span class="pg">1</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <div class="case-box reveal" data-case>
+        <span class="kicker">Viñeta de apertura</span>
+        <h2>Lea la viñeta y vote el código permitido hoy.</h2>
+        <div class="case-text">
+          <p>Paciente con tristeza, insomnio y baja energía. Refiere 4 días previos con menos sueño, más actividad y gastos impulsivos.</p>
+          <p>Faltan datos: duración depresiva, número de síntomas, anhedonia, ánimo elevado/irritable, deterioro, sustancias y causa médica.</p>
+        </div>
+        <div class="choice-grid">
+          <button class="choice" data-correct="false" data-feedback="F32/F33 exige umbral depresivo CIE-10. Aquí solo hay datos sueltos.">F32/F33</button>
+          <button class="choice" data-correct="false" data-feedback="F31.3/4/5 exige episodio depresivo actual con umbral y episodio hipomaníaco, maníaco o mixto previo autenticado.">F31.3/4/5</button>
+          <button class="choice" data-correct="false" data-feedback="F41.2 es residual. No se usa si faltan datos de ansiedad, síntomas autonómicos y umbral depresivo.">F41.2</button>
+          <button class="choice" data-correct="true" data-feedback="Correcto. No codificar aún. Primero completar criterios CIE-10 y exclusiones.">No codificar aún</button>
+        </div>
+        <div class="feedback"><strong>Voto:</strong> elija una opción para revelar el feedback.</div>
+      </div>
+    </div>
+    <footer class="footer"><span>El caso no premia la rapidez; premia la trazabilidad.</span><span class="pg">2</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Regla madre</span>
+        <h2 class="reveal">CIE-10 exige tres cosas: síndrome, curso y exclusiones.</h2>
+        <p class="lead reveal">El código no es una impresión. Es una decisión documentada.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="tile ok"><span class="code-pill ok">1</span><strong>Síndrome actual</strong><span>Cumple síntomas y duración suficientes.</span></div>
+        <div class="tile warn"><span class="code-pill alt">2</span><strong>Curso</strong><span>Único, recurrente, crónico, reactivo o bipolar.</span></div>
+        <div class="tile stop"><span class="code-pill">3</span><strong>Exclusiones</strong><span>Orgánico, sustancia, bipolaridad, psicosis, estresor, duelo.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>No se enseña sospecha como diagnóstico.</span><span class="pg">3</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content wide-split">
+      <div>
+        <span class="kicker reveal">Mapa completo</span>
+        <h2 class="reveal">El árbol decide el orden; el umbral decide el código.</h2>
+        <p class="lead reveal">Cada nodo pregunta: ¿qué dato necesito para permitir o bloquear este código?</p>
+      </div>
+      <div class="visual reveal">
+        <div class="flow">
+          <div class="flow-row active"><span class="node-num">1</span><span><strong>Orgánico / sustancia</strong> antes de afectivo primario.</span></div>
+          <div class="flow-row"><span class="node-num">2</span><span><strong>Bipolaridad</strong> antes de depresión unipolar.</span></div>
+          <div class="flow-row"><span class="node-num">3</span><span><strong>F32/F33</strong> solo si alcanza umbral depresivo.</span></div>
+          <div class="flow-row"><span class="node-num">4</span><span><strong>Ansiedad específica</strong> si es primaria y suficiente.</span></div>
+          <div class="flow-row"><span class="node-num">5</span><span><strong>F43.2 / F34.1 / F60</strong> según curso y contexto.</span></div>
+          <div class="flow-row"><span class="node-num">6</span><span><strong>F41.2</strong> solo como mixto residual subumbral.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Primero descartar; después comprobar; recién después codificar.</span><span class="pg">4</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content pyramid-layout">
+      <div class="pyramid-copy">
+        <span class="kicker reveal">Pirámide diferencial</span>
+        <h2 class="reveal">Mientras más arriba, más bloquea lo de abajo.</h2>
+        <p class="lead reveal">No es una pirámide de frecuencia. Es una pirámide de prioridad diagnóstica: etiología primero, umbral después, historia longitudinal al final.</p>
+        <span class="callout warn reveal">Regla de sala: si una capa superior se defiende, no fuerces la inferior.</span>
+      </div>
+      <div class="pyramid-visual reveal" aria-label="Pirámide del diagnóstico diferencial">
+        <div class="pyramid-level" style="--w: 42%; --c: var(--danger)"><span class="pyramid-code">F06.3</span><div><strong>Orgánico</strong><span>Causalidad médica o cerebral documentada.</span></div></div>
+        <div class="pyramid-level" style="--w: 54%; --c: var(--orange)"><span class="pyramid-code">F1x</span><div><strong>Sustancias</strong><span>Uso, intoxicación o abstinencia explica mejor.</span></div></div>
+        <div class="pyramid-level" style="--w: 66%; --c: var(--blue)"><span class="pyramid-code">F30/F31</span><div><strong>Bipolaridad</strong><span>Hipomanía o manía auténtica cambia la familia.</span></div></div>
+        <div class="pyramid-level" style="--w: 78%; --c: var(--navy)"><span class="pyramid-code">F32/F33/F34.1</span><div><strong>Afectivo no bipolar</strong><span>Umbral depresivo, severidad y curso.</span></div></div>
+        <div class="pyramid-level" style="--w: 90%; --c: var(--blue-2)"><span class="pyramid-code">F41.1/F43.2/F41.2</span><div><strong>Ansiedad, estrés o mixto</strong><span>Primario, reactivo o subumbral residual.</span></div></div>
+        <div class="pyramid-level" style="--w: 100%; --c: var(--ok)"><span class="pyramid-code">F60.x</span><div><strong>Personalidad</strong><span>Patrón previo, persistente y transversal.</span></div></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Arriba bloquea; abajo contextualiza.</span><span class="pg">5</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content hitop-tree-slide">
+      <div class="hitop-tree-head">
+        <div>
+          <span class="kicker reveal">Lente HiTOP</span>
+          <h2 class="reveal">Los diagnósticos se parecen porque comparten niveles superiores.</h2>
+        </div>
+        <span class="hitop-note reveal">Mapa dimensional para explicar solapamiento; CIE-10 decide el código.</span>
+      </div>
+      <div class="hitop-tree-board reveal" aria-label="Jerarquía HiTOP adaptada al diferencial depresivo en CIE-10">
+        <div class="hitop-tree-grid">
+          <div class="tree-label">Superspectro</div>
+          <div class="tree-box super" style="grid-column: 2 / 7"><strong>Disfunción emocional</strong><span>afecto negativo · amenaza · pérdida · preocupación · regulación frágil</span></div>
+
+          <div class="tree-label">Espectro</div>
+          <div class="tree-box spectrum somato"><strong>Somatomorfo</strong><span>malestar corporal</span></div>
+          <div class="tree-box spectrum" style="grid-column: 3 / 7"><strong>Internalizante</strong><span>distress, miedo, ansiedad, ánimo bajo y rasgos afectivos pueden moverse juntos</span></div>
+
+          <div class="tree-label">Subfactor</div>
+          <div class="tree-box somato"><strong>Somático</strong><span>dolor · fatiga · GI · cardio</span></div>
+          <div class="tree-box distress"><strong>Distress</strong><span>pérdida · disforia</span></div>
+          <div class="tree-box mania"><strong>Manía*</strong><span>activación</span></div>
+          <div class="tree-box fear"><strong>Miedo</strong><span>amenaza · evitación</span></div>
+          <div class="tree-box stress"><strong>Estrés / control</strong><span>preocupación · inseguridad</span></div>
+
+          <div class="tree-label">Componentes</div>
+          <div class="tree-box somato"><strong>Síntomas corporales</strong><span>malaise, tensión, molestias físicas, ansiedad fisiológica</span></div>
+          <div class="tree-box distress"><strong>Afectividad negativa</strong><span>depresividad, anhedonia, insomnio, irritabilidad, labilidad</span></div>
+          <div class="tree-box mania"><strong>Activación elevada</strong><span>menor necesidad de sueño, sobreconfianza, impulsividad</span></div>
+          <div class="tree-box fear"><strong>Sensibilidad a amenaza</strong><span>pánico, fobias, evitación, ansiedad autonómica</span></div>
+          <div class="tree-box stress"><strong>Regulación frágil</strong><span>rumiación, reacción a estresor, patrón interpersonal</span></div>
+
+          <div class="tree-label">Síndromes CIE-10</div>
+          <div class="tree-box syndrome somato"><strong>Primero descartar</strong><span>F06.3 · F1x · causas médicas</span></div>
+          <div class="tree-box syndrome distress"><strong>Afectivo no bipolar</strong><span>F32/F33 · F34.1</span></div>
+          <div class="tree-box syndrome mania"><strong>Bipolaridad</strong><span>F30/F31 bloquea unipolar</span></div>
+          <div class="tree-box syndrome fear"><strong>Ansiedad primaria</strong><span>F41.1 si domina ansiedad</span></div>
+          <div class="tree-box syndrome stress"><strong>Mixto / adaptación / rasgo</strong><span>F41.2 · F43.2 · F60.x</span></div>
+        </div>
+        <div class="hitop-tree-gate">
+          <strong>CIE-10 codifica por:</strong>
+          <span>umbral</span>
+          <span>curso</span>
+          <span>exclusiones</span>
+          <small>*Si hay manía/hipomanía auténtica, cambia la familia diagnóstica.</small>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Marco conceptual: HiTOP / espectro internalizante.</span><span class="pg">6</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Qué dice el artículo</span>
+      <h2 class="reveal">HiTOP ordena el solapamiento que CIE-10 nos obliga a separar.</h2>
+      <p class="lead reveal">Watson et al. describen un superspectro de disfunción emocional: internalizante y somatomorfo comparten un núcleo de afectividad negativa.</p>
+      <div class="mini-grid four reveal">
+        <div class="tile warn"><span class="code-pill alt">1</span><strong>El problema</strong><span>Las categorías rígidas pierden información: límites arbitrarios, comorbilidad, heterogeneidad y variación entre evaluadores.</span></div>
+        <div class="tile"><span class="code-pill">2</span><strong>La solución</strong><span>Una jerarquía: síntomas y rasgos homogéneos se agrupan en síndromes, subfactores, espectros y superspectros.</span></div>
+        <div class="tile ok"><span class="code-pill ok">3</span><strong>El núcleo</strong><span>Depresión, ansiedad, trauma, somático y rasgos de personalidad se conectan por afectividad negativa/neuroticismo.</span></div>
+        <div class="tile stop"><span class="code-pill">4</span><strong>La cautela</strong><span>Manía, obsesiones, alimentación y somático tienen zonas ambiguas: mirar el nivel bajo evita sobrediagnóstico.</span></div>
+      </div>
+      <span class="callout warn reveal">Idea docente: HiTOP explica por qué se parecen; CIE-10 decide cuándo ya son código.</span>
+    </div>
+    <footer class="footer"><span>Fuente: Watson et al., World Psychiatry, 2022; doi:10.1002/wps.20943.</span><span class="pg">7</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Traducción clínica</span>
+      <h2 class="reveal">El mapa dimensional orienta la entrevista; el código sale del criterio.</h2>
+      <div class="compare-table reveal">
+        <div class="compare-row header"><strong>Si ves este patrón</strong><strong>Piensa dimensionalmente</strong><strong>Defiende CIE-10 con este dato</strong></div>
+        <div class="compare-row"><strong>Distress</strong><span>Depresividad, anhedonia, culpa, insomnio, irritabilidad, preocupación persistente.</span><span>Umbral F32/F33, cronicidad F34.1 o ansiedad primaria F41.1.</span></div>
+        <div class="compare-row"><strong>Miedo / amenaza</strong><span>Pánico, evitación, ansiedad autonómica, sensibilidad a amenaza o contextos específicos.</span><span>No usar “ansioso-depresivo” si la ansiedad cumple síndrome propio.</span></div>
+        <div class="compare-row"><strong>Somático</strong><span>Dolor, fatiga, gastrointestinal, cardiopulmonar o preocupación corporal.</span><span>Antes de F32/F33, descartar F06.3, F1x y enfermedad médica relevante.</span></div>
+        <div class="compare-row"><strong>Rasgo / curso</strong><span>Afectividad negativa estable, labilidad, patrón interpersonal, reacción a estrés.</span><span>Separar episodio actual, F43.2 por estresor y F60.x por patrón persistente.</span></div>
+      </div>
+      <span class="callout reveal">Remate: mismo superspectro no significa mismo diagnóstico.</span>
+    </div>
+    <footer class="footer"><span>Uso correcto: mapa para preguntar mejor, no atajo para codificar.</span><span class="pg">8</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Parecidos clínicos</span>
+      <h2 class="reveal">Comparten disfunción emocional; se separan por el dato que manda.</h2>
+      <div class="spectrum-grid reveal">
+        <div class="spectrum-card" style="--c: var(--navy)"><strong>F32/F33 depresión</strong><span>Pérdida, ánimo bajo y anhedonia. Decide: síntomas típicos/adicionales, 2 semanas, severidad y recurrencia.</span></div>
+        <div class="spectrum-card" style="--c: var(--blue)"><strong>F41.1 ansiedad</strong><span>Preocupación, amenaza y tensión persistente. Decide: ansiedad primaria, generalizada y con síntomas autonómicos.</span></div>
+        <div class="spectrum-card" style="--c: var(--teal)"><strong>F41.2 mixto</strong><span>Ansiedad + depresión, pero ambas subumbrales. Decide: ningún síndrome completo y presencia autonómica.</span></div>
+        <div class="spectrum-card" style="--c: var(--orange)"><strong>F43.2 adaptación</strong><span>Tristeza/ansiedad ligadas a evento vital. Decide: estresor identificable y no cumplir diagnóstico más específico.</span></div>
+        <div class="spectrum-card" style="--c: var(--ok)"><strong>F34.1 distimia</strong><span>Disforia persistente, años de curso. Decide: cronicidad sin episodio depresivo actual suficiente.</span></div>
+        <div class="spectrum-card" style="--c: var(--danger)"><strong>F60.x personalidad</strong><span>La emoción se vuelve patrón. Decide: rasgo previo, persistente, transversal y no limitado a crisis.</span></div>
+      </div>
+      <span class="callout reveal">Frase útil: “se parecen por dimensión; se codifican por umbral, curso y exclusiones”.</span>
+    </div>
+    <footer class="footer"><span>Personalidad aporta línea de vida, no reemplaza el episodio actual.</span><span class="pg">9</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Portero 1</span>
+        <h2 class="reveal">El árbol empieza descartando causa orgánica o inducida.</h2>
+        <p class="lead reveal">F06.3 y F1x no son accesorios; bloquean una etiqueta afectiva primaria.</p>
+      </div>
+      <div class="mini-grid two reveal">
+        <div class="tile warn"><span class="code-pill alt">F06.3</span><strong>Orgánico del ánimo</strong><span>Cambio afectivo presumiblemente secundario a enfermedad cerebral, física o disfunción.</span></div>
+        <div class="tile warn"><span class="code-pill alt">F1x</span><strong>Sustancia</strong><span>Intoxicación, abstinencia, dependencia o inducido por sustancia explica mejor el cuadro.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Si la causa fisiológica domina, no fuerces F32/F33.</span><span class="pg">10</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F06.3: trastorno orgánico del ánimo.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Qué debe existir</h3>
+          <ul>
+            <li>Cambio de ánimo o afecto, usualmente con cambio del nivel global de actividad.</li>
+            <li>El cuadro afectivo debe cumplir una forma clínica de F30-F33.</li>
+            <li>La causa cerebral o física debe estar demostrada o sostenida por historia adecuada.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Relación etiológica</h3>
+          <ul>
+            <li>El trastorno afectivo sigue al factor orgánico presunto.</li>
+            <li>No debe ser solo reacción emocional a saberse enfermo.</li>
+            <li>Si la evidencia orgánica es inespecífica, no alcanza para F06.3.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Subcódigo útil</h3>
+          <div class="criteria-table">
+            <div class="criteria-row"><strong>F06.30</strong><span>Trastorno maníaco orgánico.</span></div>
+            <div class="criteria-row"><strong>F06.31</strong><span>Trastorno bipolar orgánico.</span></div>
+            <div class="criteria-row"><strong>F06.32</strong><span>Trastorno depresivo orgánico.</span></div>
+            <div class="criteria-row"><strong>F06.33</strong><span>Trastorno afectivo mixto orgánico.</span></div>
+          </div>
+        </div>
+        <div class="criteria-panel">
+          <h3>Cómo codificar</h3>
+          <ul>
+            <li>Si hay depresión + causalidad orgánica defendible: F06.32, no F32/F33.</li>
+            <li>Si el fenotipo principal no es afectivo, revisar otro trastorno orgánico según clínica.</li>
+            <li>Si solo “pedí TSH/B12”, todavía no hay código orgánico.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">Regla: F06.3 exige síndrome afectivo + causalidad orgánica documentada.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F06.3.</span><span class="pg">11</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Tabla diferencial</span>
+      <h2 class="reveal">Orgánico F06.3 versus depresión primaria F32/F33.</h2>
+      <div class="compare-table reveal">
+        <div class="compare-row header"><strong>Criterio</strong><strong>F06.3 orgánico</strong><strong>F32/F33 primario</strong></div>
+        <div class="compare-row"><strong>Puerta de entrada</strong><span>Síndrome afectivo con causa cerebral/física demostrable o historia suficiente.</span><span>Síndrome depresivo que cumple síntomas, duración y severidad.</span></div>
+        <div class="compare-row"><strong>Temporalidad</strong><span>El cambio afectivo aparece después del factor orgánico presunto.</span><span>Curso episódico o recurrente sin causalidad orgánica dominante.</span></div>
+        <div class="compare-row"><strong>Dato que decide</strong><span>La causalidad orgánica explica mejor el cambio de ánimo/actividad.</span><span>El umbral depresivo se sostiene tras excluir orgánico, sustancia y bipolaridad.</span></div>
+        <div class="compare-row"><strong>Cómo codificar</strong><span>F06.32 si el fenotipo es depresivo orgánico.</span><span>F32.x si episodio único; F33.x si episodios repetidos separados por meses.</span></div>
+        <div class="compare-row"><strong>Error común</strong><span>Llamar F06.3 a cualquier paciente con laboratorio pendiente.</span><span>Poner F32/F33 sin haber buscado causa médica o sustancia relevante.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Si no puedes defender causalidad, no uses orgánico.</span><span class="pg">12</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Caso orgánico frecuente</span>
+      <h2 class="reveal">Cuando todo está lento, no cierres F32 todavía.</h2>
+      <div class="case-box reveal">
+        <div class="case-text">
+          <p>Mujer de 45 años consulta por 10 semanas de cansancio, somnolencia, ánimo bajo y bajo rendimiento. Refiere aumento de peso, estreñimiento, intolerancia al frío, piel seca y caída de cabello. La familia dice: “está más lenta”.</p>
+          <p>Pregunta docente: ¿qué dato puede bloquear depresión primaria?</p>
+        </div>
+        <div class="mini-grid">
+          <div class="tile warn"><strong>Pista orgánica</strong><span>Frío, estreñimiento, aumento de peso, bradipsiquia, piel seca o bradicardia.</span></div>
+          <div class="tile"><strong>Dato que decide</strong><span>TSH elevada y T4 libre baja, con temporalidad compatible y sin historia afectiva primaria clara.</span></div>
+          <div class="tile stop"><strong>Cómo codificar</strong><span>Si hay síndrome afectivo secundario defendible: F06.32. Si solo hay síntomas somáticos, no fuerces F32/F33.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Hipotiroidismo: mimetiza depresión por enlentecimiento, fatiga y ánimo bajo.</span><span class="pg">13</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Caso orgánico frecuente</span>
+      <h2 class="reveal">Fatiga, apatía y niebla mental también pueden venir de sangre o B12.</h2>
+      <div class="case-box reveal">
+        <div class="case-text">
+          <p>Varón de 68 años llega por apatía, cansancio, olvidos y menor iniciativa en 4 meses. En la entrevista aparecen palidez, glositis, parestesias distales y marcha insegura. La familia pide “tratamiento para depresión”.</p>
+          <p>Pregunta docente: ¿qué dato falta antes de poner F32/F33?</p>
+        </div>
+        <div class="mini-grid">
+          <div class="tile warn"><strong>Pista orgánica</strong><span>Palidez, glositis, parestesias, ataxia, memoria alterada o dieta/absorción de riesgo.</span></div>
+          <div class="tile"><strong>Dato que decide</strong><span>Hemograma, VCM, B12/folato según clínica; correlacionar temporalidad y examen físico.</span></div>
+          <div class="tile stop"><strong>Cómo codificar</strong><span>Si lo médico explica el cuadro, no cierres F32. F06.32 solo si hay síndrome afectivo secundario defendible.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Anemia/deficiencia de B12: no todo cansancio con ánimo bajo es episodio depresivo.</span><span class="pg">14</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F1x: trastorno mental por sustancia.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Primero identifica sustancia</h3>
+          <ul>
+            <li>Alcohol, opioides, cannabinoides, sedantes, cocaína, estimulantes, alucinógenos, tabaco, solventes u otras.</li>
+            <li>Usa autoinforme, examen clínico, muestra biológica, hallazgos físicos o informantes.</li>
+            <li>La sustancia debe explicar mejor el cuadro actual.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Luego el estado clínico</h3>
+          <div class="criteria-table">
+            <div class="criteria-row"><strong>F1x.0</strong><span>Intoxicación aguda.</span></div>
+            <div class="criteria-row"><strong>F1x.1</strong><span>Uso perjudicial con daño mental o físico real.</span></div>
+            <div class="criteria-row"><strong>F1x.2</strong><span>Dependencia: al menos 3 criterios durante el último año.</span></div>
+            <div class="criteria-row"><strong>F1x.3/.4/.5</strong><span>Abstinencia, abstinencia con delirium o trastorno psicótico.</span></div>
+          </div>
+        </div>
+        <div class="criteria-panel">
+          <h3>Para bloquear F32/F33</h3>
+          <ul>
+            <li>Temporalidad compatible entre uso/abstinencia y síntomas afectivos.</li>
+            <li>Fenotipo esperable para la sustancia o medicamento.</li>
+            <li>Remisión o cambio con suspensión, abstinencia o tratamiento apoya causalidad.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>No codificar por sustancia si</h3>
+          <ul>
+            <li>El episodio afectivo completo precede al consumo.</li>
+            <li>El patrón afectivo persiste independientemente del uso.</li>
+            <li>Solo hay consumo incidental sin relación clínica suficiente.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F1x no es un cajón: exige sustancia identificada + estado clínico + temporalidad.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F10-F19.</span><span class="pg">15</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Portero 2</span>
+        <h2 class="reveal">La bipolaridad se pregunta antes de cerrar depresión unipolar.</h2>
+        <p class="lead reveal">Una depresión actual con historia bipolar cambia el código y el plan.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="time-block" style="--h: 28%"><strong>Basal</strong><span>Funcionamiento previo.</span></div>
+        <div class="time-block" style="--h: 74%"><strong>Elevación</strong><span>Ánimo/actividad anormal.</span></div>
+        <div class="time-block" style="--h: 40%"><strong>Recuperación</strong><span>Separación temporal.</span></div>
+        <div class="time-block" style="--h: 18%"><strong>Actual</strong><span>Depresión posible.</span></div>
+        <div class="time-block" style="--h: 60%"><strong>Código</strong><span>Depende del episodio actual.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Autenticado significa documentado, no solo sugerido.</span><span class="pg">16</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Umbral bipolar</span>
+        <h2 class="reveal">Menos sueño no basta para hipomanía.</h2>
+        <p class="lead reveal">El dato aislado no cierra F30/F31. Debe formar un episodio.</p>
+      </div>
+      <div class="mini-grid two reveal">
+        <div class="tile ok"><strong>Ánimo</strong><span>Elevado, expansivo o irritable y anormal para el individuo.</span></div>
+        <div class="tile ok"><strong>Actividad</strong><span>Aumento de energía, actividad o inquietud.</span></div>
+        <div class="tile warn"><strong>Síntomas</strong><span>Logorrea, fuga, menor necesidad de sueño, grandiosidad, riesgo.</span></div>
+        <div class="tile stop"><strong>Curso</strong><span>Duración y deterioro separan hipomanía de manía.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿hubo cambio observable de ánimo y actividad?</span><span class="pg">17</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F30/F31: episodio maníaco o trastorno bipolar.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Hipomanía F30.0</h3>
+          <ul>
+            <li>Ánimo elevado o irritable, anormal para la persona.</li>
+            <li>Aumento de actividad o energía durante varios días.</li>
+            <li>Síntomas asociados: logorrea, menor sueño, distractibilidad, sociabilidad o conducta imprudente.</li>
+            <li>No hay deterioro grave ni síntomas psicóticos.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Manía F30.1/F30.2</h3>
+          <ul>
+            <li>Ánimo elevado, expansivo o irritable fuera de contexto.</li>
+            <li>Aumento de energía con hiperactividad, presión del habla y menor necesidad de sueño.</li>
+            <li>Duración alrededor de 1 semana o severidad suficiente para interrumpir funcionamiento.</li>
+            <li>F30.2 si hay delirios, alucinaciones o gravedad psicótica.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Trastorno bipolar F31</h3>
+          <ul>
+            <li>Al menos dos episodios con alteración significativa del ánimo y actividad.</li>
+            <li>Uno de los episodios debe ser hipomaníaco, maníaco o mixto.</li>
+            <li>El subcódigo se decide por el episodio actual.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Cómo codificar</h3>
+          <div class="criteria-table">
+            <div class="criteria-row"><strong>F30</strong><span>Episodio maníaco único.</span></div>
+            <div class="criteria-row"><strong>F31.0-2</strong><span>Bipolar actual hipomaníaco/maníaco.</span></div>
+            <div class="criteria-row"><strong>F31.3-5</strong><span>Bipolar actual depresivo.</span></div>
+            <div class="criteria-row"><strong>F31.6</strong><span>Bipolar actual mixto.</span></div>
+          </div>
+        </div>
+      </div>
+      <span class="callout warn reveal">Si hubo hipomanía/manía auténtica, no cierres depresión unipolar.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F30-F31.</span><span class="pg">18</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Codificación F31</span>
+      <h2 class="reveal">F31 se codifica por episodio actual más historia afectiva autenticada.</h2>
+      <div class="threshold reveal">
+        <div class="level"><span class="code-pill">F31.0</span><strong>Actual hipomaníaco</strong><span>Con al menos otro episodio afectivo previo.</span></div>
+        <div class="level"><span class="code-pill">F31.1/2</span><strong>Actual maníaco</strong><span>Sin o con síntomas psicóticos.</span></div>
+        <div class="level"><span class="code-pill">F31.3/4/5</span><strong>Actual depresivo</strong><span>Leve/moderado, grave sin psicosis, grave con psicosis.</span></div>
+        <div class="level"><span class="code-pill">F31.6</span><strong>Actual mixto</strong><span>Mezcla o alternancia rápida de síntomas afectivos.</span></div>
+      </div>
+      <span class="callout warn reveal">No usar "F31" genérico si puedes codificar el episodio actual.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS, CIE-10, F31.</span><span class="pg">19</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Depresión unipolar</span>
+        <h2 class="reveal">F32/F33 requiere umbral depresivo documentado.</h2>
+        <p class="lead reveal">La CIE-10 separa síntomas típicos y síntomas adicionales.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="mini-grid two">
+          <div class="tile ok"><strong>3 típicos</strong><span>Humor depresivo, anhedonia, energía reducida.</span></div>
+          <div class="tile warn"><strong>7 adicionales</strong><span>Autoestima, culpa, suicidio, concentración, psicomotor, sueño, apetito/peso.</span></div>
+        </div>
+        <div class="rule-box"><p><strong>Duración usual:</strong> al menos 2 semanas; excepción solo si es muy grave y rápido.</p></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Un síntoma nuclear no equivale a episodio depresivo.</span><span class="pg">20</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Criterios CIE-10 tal cual</span>
+      <h2 class="reveal">Episodio depresivo F32/F33: tarjeta fuente para codificar.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Síntomas típicos</h3>
+          <ol>
+            <li>Humor depresivo claramente anormal la mayor parte del día, casi todos los días.</li>
+            <li>Pérdida de interés o capacidad de disfrutar.</li>
+            <li>Reducción de energía o fatigabilidad.</li>
+          </ol>
+        </div>
+        <div class="criteria-panel">
+          <h3>Síntomas adicionales</h3>
+          <ol>
+            <li>Baja autoestima o pérdida de confianza.</li>
+            <li>Culpa excesiva o autorreproche desproporcionado.</li>
+            <li>Ideas de muerte, suicidio o conducta suicida.</li>
+            <li>Disminución de concentración o indecisión.</li>
+            <li>Agitación o inhibición psicomotriz.</li>
+            <li>Alteración del sueño.</li>
+            <li>Cambio de apetito o peso.</li>
+          </ol>
+        </div>
+        <div class="criteria-panel">
+          <h3>Umbrales de severidad</h3>
+          <div class="criteria-table">
+            <div class="criteria-row"><strong>F32.0/F33.0</strong><span>Leve: 2 típicos + 2 adicionales.</span></div>
+            <div class="criteria-row"><strong>F32.1/F33.1</strong><span>Moderado: 2 típicos + 3 adicionales.</span></div>
+            <div class="criteria-row"><strong>F32.2/F33.2</strong><span>Grave sin psicosis: 3 típicos + 4 adicionales.</span></div>
+            <div class="criteria-row"><strong>F32.3/F33.3</strong><span>Grave con psicosis: umbral grave + delirios, alucinaciones o estupor depresivo.</span></div>
+          </div>
+        </div>
+        <div class="criteria-panel">
+          <h3>Duración y recurrencia</h3>
+          <ul>
+            <li>Duración usual: al menos 2 semanas; excepción solo si el cuadro es muy grave y de inicio rápido.</li>
+            <li>F33 requiere episodios depresivos repetidos, separados por varios meses sin alteración significativa del ánimo.</li>
+            <li>F33 no se usa si existe historia independiente de manía.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">Si falta un dato crítico, la respuesta docente sigue siendo: no codificar aún.</span>
+    </div>
+    <footer class="footer"><span>Fuente operativa: tarjeta CIE-10 del deck basada en OMS, 1992.</span><span class="pg">21</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Severidad CIE-10</span>
+      <h2 class="reveal">La severidad cambia el código, no solo el adjetivo.</h2>
+      <div class="threshold reveal">
+        <div class="level"><span class="code-pill">F32.0</span><strong>Leve</strong><span>2 típicos + 2 adicionales.</span></div>
+        <div class="level"><span class="code-pill">F32.1</span><strong>Moderado</strong><span>2 típicos + 3 adicionales.</span></div>
+        <div class="level"><span class="code-pill">F32.2</span><strong>Grave sin psicosis</strong><span>3 típicos + 4 adicionales.</span></div>
+        <div class="level"><span class="code-pill">F32.3</span><strong>Grave con psicosis</strong><span>Grave + delirios, alucinaciones o estupor.</span></div>
+      </div>
+      <span class="callout reveal">Para recurrencia, cambia F32.x por F33.x.</span>
+    </div>
+    <footer class="footer"><span>El código comunica intensidad clínica y paquete esperado.</span><span class="pg">22</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Curso</span>
+        <h2 class="reveal">F33 exige recurrencia real, no solo "ya estuvo triste antes".</h2>
+        <p class="lead reveal">Debe haber episodios separados por varios meses sin alteración significativa del ánimo.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="timeline">
+          <div class="time-block" style="--h: 82%"><strong>Episodio 1</strong><span>Umbral F32.</span></div>
+          <div class="time-block" style="--h: 16%"><strong>Meses</strong><span>Sin alteración significativa.</span></div>
+          <div class="time-block" style="--h: 74%"><strong>Episodio 2</strong><span>Nuevo umbral depresivo.</span></div>
+          <div class="time-block" style="--h: 22%"><strong>Sin manía</strong><span>Si hay manía, revisar F31.</span></div>
+          <div class="time-block" style="--h: 60%"><strong>F33.x</strong><span>Código por episodio actual.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿cuántas semanas duró cada episodio?</span><span class="pg">23</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Ansiedad primaria</span>
+        <h2 class="reveal">La ansiedad primaria tiene su propio umbral.</h2>
+        <p class="lead reveal">F41.1 no es "ansiedad con tristeza"; es ansiedad generalizada, persistente y primaria.</p>
+      </div>
+      <div class="mini-grid reveal">
+        <div class="tile ok"><strong>Aprensión</strong><span>Preocupación, tensión mental, dificultad para concentrarse.</span></div>
+        <div class="tile warn"><strong>Tensión motora</strong><span>Inquietud, temblor, cefalea tensional, no poder relajarse.</span></div>
+        <div class="tile stop"><strong>Autonómico</strong><span>Sudoración, palpitaciones, boca seca, mareo, epigastralgia.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Si cumple F32 completo, no lo escondas bajo ansiedad.</span><span class="pg">24</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F41.1: ansiedad generalizada.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Núcleo clínico</h3>
+          <ul>
+            <li>Ansiedad generalizada y persistente.</li>
+            <li>No se limita ni predomina en una situación ambiental específica.</li>
+            <li>Está presente la mayoría de días durante varias semanas, usualmente meses.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Dominios de síntomas</h3>
+          <ul>
+            <li>Aprensión: preocupación, tensión mental, anticipación temerosa.</li>
+            <li>Tensión motora: inquietud, temblor, tensión muscular, cefalea tensional.</li>
+            <li>Hiperactividad autonómica: sudoración, palpitaciones, mareo, boca seca, molestias epigástricas.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Antes de codificar</h3>
+          <ul>
+            <li>Debe ser el síndrome primario, no solo un acompañante de depresión completa.</li>
+            <li>Descarta trastorno fóbico, pánico, obsesivo-compulsivo y causa orgánica/sustancia.</li>
+            <li>Evalúa riesgo suicida si hay tristeza asociada.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>No usar F41.1 si</h3>
+          <ul>
+            <li>La ansiedad está restringida a una situación fóbica.</li>
+            <li>Predominan crisis de pánico recurrentes.</li>
+            <li>El cuadro cumple F32/F33 y la ansiedad es secundaria o comórbida.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F41.1 exige ansiedad persistente, generalizada, primaria y con síntomas físicos/psíquicos suficientes.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F41.1.</span><span class="pg">25</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Dx ansioso-depresivo</span>
+      <h2 class="reveal">F41.2 existe, pero es residual y subumbral.</h2>
+      <div class="matrix reveal">
+        <div class="matrix-row"><span class="code-pill">F41.2</span><strong>Ambos presentes</strong><span>Hay síntomas de ansiedad y depresión en el mismo cuadro.</span></div>
+        <div class="matrix-row"><span class="code-pill alt">Subumbral</span><strong>Ninguno alcanza diagnóstico propio</strong><span>No cumple depresión ni trastorno de ansiedad por separado.</span></div>
+        <div class="matrix-row"><span class="code-pill ok">Autonómico</span><strong>Debe haber activación autonómica</strong><span>Palpitaciones, temblor, boca seca, molestias abdominales u otro signo autonómico.</span></div>
+      </div>
+      <span class="callout warn reveal">Nombre docente: trastorno mixto ansioso-depresivo, F41.2.</span>
+    </div>
+    <footer class="footer"><span>Este es el diagnóstico que más se presta a uso de cajón.</span><span class="pg">26</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F41.2: trastorno mixto ansioso-depresivo.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Debe cumplir</h3>
+          <ul>
+            <li>Síntomas de ansiedad y depresión están presentes en el mismo cuadro.</li>
+            <li>Ningún conjunto de síntomas alcanza severidad suficiente para diagnóstico separado.</li>
+            <li>Hay síntomas autonómicos, aunque sean intermitentes.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Bloqueos</h3>
+          <ul>
+            <li>Si depresión cumple F32/F33, codifica depresión.</li>
+            <li>Si ansiedad cumple un trastorno de ansiedad específico, no uses F41.2 como atajo.</li>
+            <li>Si ambos cumplen criterios completos, registra ambos cuando el sistema lo permita.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Estresor cercano</h3>
+          <ul>
+            <li>Si el cuadro aparece en estrecha relación con cambio vital significativo, evalúa F43.2.</li>
+            <li>F41.2 no reemplaza adaptación cuando el estresor organiza el cuadro.</li>
+            <li>Sin síntomas autonómicos: no alcanza F41.2.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Cómo codificar</h3>
+          <ul>
+            <li>Use F41.2 solo cuando ansiedad y depresión sean ambas subumbrales.</li>
+            <li>Documente qué criterios faltan para F32/F33 y F41.1.</li>
+            <li>Documente al menos un síntoma autonómico.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F41.2 es residual: si puedes defender un diagnóstico completo, F41.2 cae.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F41.2.</span><span class="pg">27</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Anticajón</span>
+      <h2 class="reveal">F41.2 no se usa si depresión o ansiedad ya cumplen criterio.</h2>
+      <div class="matrix reveal">
+        <div class="matrix-row"><span class="code-pill">F32/F33</span><strong>Depresión completa</strong><span>Si cumple umbral depresivo, codifica depresión; la ansiedad puede ser comórbida.</span></div>
+        <div class="matrix-row"><span class="code-pill">F41.1</span><strong>Ansiedad completa</strong><span>Si ansiedad primaria domina con umbral suficiente, usa ansiedad.</span></div>
+        <div class="matrix-row"><span class="code-pill alt">F43.2</span><strong>Estresor cercano</strong><span>Si hay relación temporal con cambio vital significativo, evalúa adaptación.</span></div>
+      </div>
+      <span class="callout reveal">Si ambos síndromes son completos, registra ambos; si solo uno puede registrarse, CIE-10 da precedencia a depresión.</span>
+    </div>
+    <footer class="footer"><span>F41.2 no reemplaza una entrevista incompleta.</span><span class="pg">28</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Estresor</span>
+        <h2 class="reveal">Si hay estresor cercano, primero piensa F43.2.</h2>
+        <p class="lead reveal">La pregunta no es si hay tristeza o ansiedad. La pregunta es si el estresor explica mejor el cuadro.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="flow">
+          <div class="flow-row"><span class="node-num">1</span><span><strong>Estresor identificable</strong> no catastrófico ni inusual.</span></div>
+          <div class="flow-row"><span class="node-num">2</span><span><strong>Malestar / alteración emocional</strong> que interfiere con actividad social.</span></div>
+          <div class="flow-row active"><span class="node-num">3</span><span><strong>No cumple</strong> otro trastorno más específico.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>F43.2 bloquea el uso automático de F41.2.</span><span class="pg">29</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F43.2: trastornos de adaptación.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Puerta de entrada</h3>
+          <ul>
+            <li>Malestar subjetivo y alteración emocional.</li>
+            <li>Interfiere con funcionamiento social, ocupacional o rendimiento habitual.</li>
+            <li>Aparece durante la adaptación a un cambio vital significativo o evento estresante.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Fenotipos permitidos</h3>
+          <ul>
+            <li>Ánimo depresivo, ansiedad, preocupación o mezcla de estos.</li>
+            <li>Sensación de incapacidad para afrontar, planificar o continuar.</li>
+            <li>En niños puede haber fenómenos regresivos; en adolescentes, conducta asociada.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Tiempo</h3>
+          <ul>
+            <li>Inicio usual dentro del primer mes tras el estresor o cambio vital.</li>
+            <li>Duración usual no mayor de 6 meses, salvo reacción depresiva prolongada.</li>
+            <li>El estresor debe ser clínicamente relevante, no solo anecdótico.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>No usar F43.2 si</h3>
+          <ul>
+            <li>Los síntomas alcanzan severidad para F32/F33, F41.1 u otro trastorno específico.</li>
+            <li>La respuesta corresponde a duelo culturalmente esperable sin trastorno.</li>
+            <li>No hay relación temporal defendible con el estresor.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F43.2 se codifica por relación estresor-cuadro + subumbralidad frente a diagnósticos específicos.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F43.2.</span><span class="pg">30</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Duelo</span>
+        <h2 class="reveal">El duelo no se convierte automáticamente en trastorno.</h2>
+        <p class="lead reveal">El contexto cultural y temporal decide si hablamos de reacción esperable o de síndrome clínico.</p>
+      </div>
+      <div class="mini-grid two reveal">
+        <div class="tile ok"><strong>Duelo esperado</strong><span>Dolor ligado a pérdida, oscilante, culturalmente congruente.</span></div>
+        <div class="tile warn"><strong>Depresión</strong><span>Umbral F32/F33 completo, deterioro y síntomas persistentes.</span></div>
+        <div class="tile stop"><strong>Adaptación</strong><span>Estresor vital con síntomas que no alcanzan otro diagnóstico.</span></div>
+        <div class="tile"><strong>No codificar aún</strong><span>Si falta historia, duración o deterioro.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>No patologizar duelo normal es también precisión diagnóstica.</span><span class="pg">31</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Curso crónico</span>
+        <h2 class="reveal">La distimia es curso crónico, no episodio agudo leve.</h2>
+        <p class="lead reveal">F34.1 exige depresión muy prolongada que no cumple recurrente por severidad o duración.</p>
+      </div>
+      <div class="matrix reveal">
+        <div class="matrix-row"><span class="code-pill">F32.0</span><strong>Episodio leve</strong><span>Inicio y fin episódicos; mínimo 2 semanas si cumple umbral.</span></div>
+        <div class="matrix-row"><span class="code-pill">F33.0</span><strong>Recurrente leve</strong><span>Episodios separados por meses sin alteración significativa.</span></div>
+        <div class="matrix-row"><span class="code-pill alt">F34.1</span><strong>Distimia</strong><span>Humor deprimido muy prolongado; normalidad rara o breve.</span></div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿esto empezó hace semanas o hace años?</span><span class="pg">32</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F34.1: distimia.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Puerta de entrada</h3>
+          <ul>
+            <li>Depresión crónica del ánimo, muy prolongada.</li>
+            <li>Comienza habitualmente temprano en la vida adulta y dura años.</li>
+            <li>Puede ser continua o con períodos breves de normalidad.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Fenotipo típico</h3>
+          <ul>
+            <li>El paciente suele sentirse cansado, con baja confianza o dificultad para disfrutar.</li>
+            <li>Puede haber sueño alterado, bajo rendimiento y pesimismo.</li>
+            <li>La persona funciona, pero con malestar persistente y estilo depresivo.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Bloqueo principal</h3>
+          <ul>
+            <li>No cumple criterios suficientes para episodio depresivo recurrente leve o moderado.</li>
+            <li>Si hay episodio depresivo actual completo, codifica F32/F33 según curso.</li>
+            <li>Si hay historia de manía/hipomanía, revisar F31.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Cómo codificar</h3>
+          <ul>
+            <li>Use F34.1 cuando el problema es curso depresivo crónico, no episodio agudo.</li>
+            <li>Documente años de evolución, períodos de normalidad y funcionamiento.</li>
+            <li>No lo use para tristeza breve o reacción a estresor reciente.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F34.1 es diagnóstico de curso: si no sabes la línea de tiempo, no lo cierres.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F34.1.</span><span class="pg">33</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Personalidad</span>
+        <h2 class="reveal">Personalidad se sospecha por patrón persistente, no por una crisis.</h2>
+        <p class="lead reveal">El diagnóstico diferencial pregunta si el problema es episodio, curso crónico o estilo estable.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="flow">
+          <div class="flow-row"><span class="node-num">A</span><span><strong>Episodio</strong> cambio respecto al basal.</span></div>
+          <div class="flow-row"><span class="node-num">B</span><span><strong>Distimia</strong> depresión crónica del ánimo.</span></div>
+          <div class="flow-row active"><span class="node-num">C</span><span><strong>Personalidad</strong> patrón persistente, inflexible y transversal.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Evitar F60 en crisis sin historia longitudinal suficiente.</span><span class="pg">34</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content criteria-slide">
+      <span class="kicker reveal">Permiso CIE-10</span>
+      <h2 class="reveal">F60.x: trastorno específico de personalidad.</h2>
+      <div class="criteria-sheet reveal">
+        <div class="criteria-panel">
+          <h3>Condición general</h3>
+          <ul>
+            <li>No debe atribuirse directamente a lesión/enfermedad cerebral ni a otro trastorno psiquiátrico.</li>
+            <li>Patrón marcadamente disarmónico de actitudes y conducta.</li>
+            <li>Compromete varias áreas: afectividad, impulsos, percepción, pensamiento o relación con otros.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Curso</h3>
+          <ul>
+            <li>Patrón duradero, de larga data.</li>
+            <li>No se limita a episodios de enfermedad mental.</li>
+            <li>Aparece en infancia/adolescencia y continúa en la adultez.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Impacto</h3>
+          <ul>
+            <li>Es generalizado y maladaptativo en situaciones personales y sociales amplias.</li>
+            <li>Produce malestar personal, a veces evidente tarde en el curso.</li>
+            <li>Suele asociarse a problemas ocupacionales y sociales significativos.</li>
+          </ul>
+        </div>
+        <div class="criteria-panel">
+          <h3>Cómo usarlo en diferencial</h3>
+          <ul>
+            <li>No codificar F60 por una crisis depresiva aislada.</li>
+            <li>Buscar patrón longitudinal previo al episodio actual.</li>
+            <li>Si hay episodio F32/F33 actual, puede coexistir, pero no lo reemplaza.</li>
+          </ul>
+        </div>
+      </div>
+      <span class="callout warn reveal">F60 exige historia longitudinal; sin línea de vida, no se cierra en una guardia.</span>
+    </div>
+    <footer class="footer"><span>Fuente: OMS CIE-10, F60.</span><span class="pg">35</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content split">
+      <div>
+        <span class="kicker reveal">Seguridad diagnóstica</span>
+        <h2 class="reveal">Cuando faltan datos, la respuesta correcta es no codificar aún.</h2>
+        <p class="lead reveal">La incertidumbre clínica no es fracaso. Es una indicación de completar evaluación.</p>
+      </div>
+      <div class="visual reveal">
+        <div class="rule-box"><p><strong>Fórmula:</strong> criterios que cumple + criterios que faltan + código permitido hoy + pregunta que desbloquea.</p></div>
+        <div class="mini-grid two">
+          <div class="tile ok"><strong>Se puede defender</strong><span>El código entra al HIS.</span></div>
+          <div class="tile stop"><strong>No se puede defender</strong><span>Se documenta provisional y se completa entrevista.</span></div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer"><span>Este slide protege al paciente y a la data.</span><span class="pg">36</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <div class="case-box reveal" data-case>
+        <span class="kicker">Microcaso 1</span>
+        <h2>Lea la viñeta y vote el código permitido hoy.</h2>
+        <div class="case-text">
+          <p>Paciente triste desde hace 6 días, insomnio inicial, apetito conservado, trabaja, niega anhedonia y suicidio.</p>
+          <p>Pregunta: ¿qué código permite CIE-10 hoy?</p>
+        </div>
+        <div class="choice-grid">
+          <button class="choice" data-correct="false" data-feedback="Incorrecto. No hay 2 semanas ni síntomas típicos/adicionales suficientes.">F32.0</button>
+          <button class="choice" data-correct="false" data-feedback="Incorrecto. F41.2 requiere síntomas de ansiedad y depresión subumbrales con síntomas autonómicos.">F41.2</button>
+          <button class="choice" data-correct="true" data-feedback="Correcto. No codificar aún. Cumple tristeza e insomnio, pero faltan duración y umbral.">No codificar aún</button>
+          <button class="choice" data-correct="false" data-feedback="Incorrecto. F43.2 requiere estresor identificable y relación temporal clara.">F43.2</button>
+        </div>
+        <div class="feedback"><strong>Voto:</strong> elija una opción.</div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿completa 2 semanas y al menos 4 síntomas?</span><span class="pg">37</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <div class="case-box reveal" data-case>
+        <span class="kicker">Microcaso 2</span>
+        <h2>Lea la viñeta y vote el código permitido hoy.</h2>
+        <div class="case-text">
+          <p>Episodio actual: 3 semanas, ánimo depresivo, anhedonia, fatiga, insomnio, culpa y baja concentración. Historia: episodio previo de 5 días con ánimo expansivo, menor necesidad de sueño, logorrea y gasto riesgoso, observado por familia.</p>
+          <p>Pregunta: ¿qué familia de código se defiende primero?</p>
+        </div>
+        <div class="choice-grid">
+          <button class="choice" data-correct="false" data-feedback="F32/F33 queda bloqueado por historia hipomaníaca o maníaca autenticada.">F32/F33</button>
+          <button class="choice" data-correct="true" data-feedback="Correcto. Depresión actual con historia bipolar autenticada orienta a F31.3/4/5 según gravedad y psicosis.">F31.3/4/5</button>
+          <button class="choice" data-correct="false" data-feedback="F41.2 no corresponde: hay episodio depresivo con umbral completo y antecedente bipolar.">F41.2</button>
+          <button class="choice" data-correct="false" data-feedback="No es la mejor respuesta: ya hay datos suficientes para familia F31, falta precisar subcódigo.">No codificar</button>
+        </div>
+        <div class="feedback"><strong>Voto:</strong> elija una opción.</div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: gravedad actual y síntomas psicóticos.</span><span class="pg">38</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <div class="case-box reveal" data-case>
+        <span class="kicker">Microcaso 3</span>
+        <h2>Lea la viñeta y vote el código permitido hoy.</h2>
+        <div class="case-text">
+          <p>Paciente con 2 meses de preocupación, palpitaciones intermitentes, tensión muscular, tristeza leve y pérdida parcial de interés. No cumple F32/F33 ni F41.1. No hay estresor vital claro.</p>
+          <p>Pregunta: ¿qué código permite CIE-10 hoy?</p>
+        </div>
+        <div class="choice-grid">
+          <button class="choice" data-correct="false" data-feedback="No cumple umbral depresivo completo; F32/F33 sería sobrediagnóstico.">F32/F33</button>
+          <button class="choice" data-correct="false" data-feedback="No cumple ansiedad generalizada como síndrome completo; falta umbral F41.1.">F41.1</button>
+          <button class="choice" data-correct="true" data-feedback="Correcto. F41.2: síntomas ansiosos y depresivos, ambos subumbrales, con síntomas autonómicos y sin estresor claro.">F41.2</button>
+          <button class="choice" data-correct="false" data-feedback="F43.2 requiere estresor identificable; aquí se niega estresor claro.">F43.2</button>
+        </div>
+        <div class="feedback"><strong>Voto:</strong> elija una opción.</div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿los síntomas autonómicos están presentes?</span><span class="pg">39</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <div class="case-box reveal" data-case>
+        <span class="kicker">Microcaso 4</span>
+        <h2>Lea la viñeta y vote el código permitido hoy.</h2>
+        <div class="case-text">
+          <p>Tras perder el empleo hace 3 semanas, paciente presenta tristeza, preocupación, llanto, insomnio y tensión. No cumple F32/F33 ni F41.1. El cuadro interfiere con entrevistas laborales.</p>
+          <p>Pregunta: ¿qué código se defiende primero?</p>
+        </div>
+        <div class="choice-grid">
+          <button class="choice" data-correct="false" data-feedback="F41.2 no es primera opción si los síntomas aparecen en estrecha asociación con un estresor significativo.">F41.2</button>
+          <button class="choice" data-correct="true" data-feedback="Correcto. F43.2: estresor identificable, síntomas emocionales, interferencia y no cumple otro trastorno específico.">F43.2</button>
+          <button class="choice" data-correct="false" data-feedback="No hay umbral depresivo completo documentado para F32/F33.">F32/F33</button>
+          <button class="choice" data-correct="false" data-feedback="Hay datos suficientes para evaluar F43.2; no es solo falta de información.">No codificar</button>
+        </div>
+        <div class="feedback"><strong>Voto:</strong> elija una opción.</div>
+      </div>
+    </div>
+    <footer class="footer"><span>Pregunta desbloqueante: ¿el cuadro sigue siendo subumbral para F32/F33 y F41.1?</span><span class="pg">40</span></footer>
+  </section>
+
+  <section class="slide closing">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Cierre</span>
+      <h1 class="reveal">El buen diagnóstico deja rastro defendible en el HIS.</h1>
+      <p class="lead reveal">Criterios que cumple. Criterios que faltan. Código permitido hoy. Pregunta clínica siguiente.</p>
+      <span class="callout reveal">Fuente: OMS. ICD-10 Classification of Mental and Behavioural Disorders. 1992.</span>
+    </div>
+    <footer class="footer"><span>Diagnóstico diferencial categorial de depresión</span><span class="pg">41</span></footer>
+  </section>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.navDotsContainer = document.querySelector(".nav-dots");
+        this.progressBar = document.querySelector(".progress-bar");
+        this.currentSlide = 0;
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupWheelNav();
+        this.setupNavDots();
+        this.setupCases();
+        this.updateProgress();
+      }
+
+      goToSlide(index) {
+        const next = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides[next].scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = this.slides.indexOf(entry.target);
+              this.currentSlide = index;
+              entry.target.classList.add("visible");
+              this.updateProgress();
+              this.updateDots();
+            }
+          });
+        }, { threshold: 0.62 });
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener("keydown", (event) => {
+          if (["ArrowDown", "ArrowRight", " ", "PageDown"].includes(event.key)) {
+            event.preventDefault();
+            this.goToSlide(this.currentSlide + 1);
+          }
+          if (["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)) {
+            event.preventDefault();
+            this.goToSlide(this.currentSlide - 1);
+          }
+          if (event.key === "Home") this.goToSlide(0);
+          if (event.key === "End") this.goToSlide(this.slides.length - 1);
+        });
+      }
+
+      setupTouchNav() {
+        let startY = 0;
+        window.addEventListener("touchstart", (event) => {
+          startY = event.changedTouches[0].clientY;
+        }, { passive: true });
+        window.addEventListener("touchend", (event) => {
+          const delta = startY - event.changedTouches[0].clientY;
+          if (Math.abs(delta) > 50) this.goToSlide(this.currentSlide + (delta > 0 ? 1 : -1));
+        }, { passive: true });
+      }
+
+      setupWheelNav() {
+        let locked = false;
+        window.addEventListener("wheel", (event) => {
+          if (locked || Math.abs(event.deltaY) < 24) return;
+          locked = true;
+          this.goToSlide(this.currentSlide + (event.deltaY > 0 ? 1 : -1));
+          setTimeout(() => { locked = false; }, 550);
+        }, { passive: true });
+      }
+
+      setupNavDots() {
+        this.navDotsContainer.innerHTML = "";
+        this.slides.forEach((_, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.setAttribute("aria-label", `Ir a slide ${index + 1}`);
+          button.addEventListener("click", () => this.goToSlide(index));
+          this.navDotsContainer.appendChild(button);
+        });
+        this.updateDots();
+      }
+
+      setupCases() {
+        document.querySelectorAll("[data-case]").forEach((caseBox) => {
+          const feedback = caseBox.querySelector(".feedback");
+          caseBox.querySelectorAll(".choice").forEach((button) => {
+            button.addEventListener("click", () => {
+              caseBox.querySelectorAll(".choice").forEach((b) => b.classList.remove("correct", "incorrect"));
+              const isCorrect = button.dataset.correct === "true";
+              button.classList.add(isCorrect ? "correct" : "incorrect");
+              feedback.innerHTML = `<strong>${isCorrect ? "Correcto:" : "Revisar:"}</strong> ${button.dataset.feedback}`;
+            });
+          });
+        });
+      }
+
+      updateProgress() {
+        const pct = ((this.currentSlide + 1) / this.slides.length) * 100;
+        this.progressBar.style.width = `${pct}%`;
+      }
+
+      updateDots() {
+        const dots = Array.from(this.navDotsContainer.querySelectorAll("button"));
+        dots.forEach((dot, index) => dot.classList.toggle("active", index === this.currentSlide));
+      }
+    }
+
+    new SlidePresentation();
+  </script>
+</body>
+</html>
