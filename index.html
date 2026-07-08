@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diagnóstico diferencial de depresión · CIE-10</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap');
+
     /* ===========================================
        VIEWPORT FITTING: MANDATORY BASE STYLES
        Include this ENTIRE file in every presentation.
@@ -198,9 +200,15 @@
 
     body {
       margin: 0;
-      background: #263746;
+      background: #0b1a2b;
       color: var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, .code-pill, .kicker {
+      font-family: 'Sora', 'Inter', system-ui, Arial, sans-serif;
     }
 
     .slide {
@@ -1404,22 +1412,414 @@
         display: none;
       }
     }
+
+    /* =========================================================
+       EPIC ENHANCEMENTS · animación y profundidad (mantiene tema)
+       ========================================================= */
+
+    /* Aurora viva de fondo (se ve en cover, closing y bordes) */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .aurora::before,
+    .aurora::after {
+      content: "";
+      position: absolute;
+      width: 60vmax;
+      height: 60vmax;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.5;
+      mix-blend-mode: screen;
+    }
+
+    .aurora::before {
+      left: -12vmax;
+      top: -14vmax;
+      background: radial-gradient(circle at 30% 30%, var(--blue-2), transparent 62%);
+      animation: auroraDrift1 22s ease-in-out infinite;
+    }
+
+    .aurora::after {
+      right: -14vmax;
+      bottom: -16vmax;
+      background: radial-gradient(circle at 60% 60%, var(--green), transparent 60%);
+      animation: auroraDrift2 26s ease-in-out infinite;
+    }
+
+    @keyframes auroraDrift1 {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(8vmax, 6vmax, 0) scale(1.14); }
+    }
+
+    @keyframes auroraDrift2 {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+      50% { transform: translate3d(-9vmax, -5vmax, 0) scale(0.92); }
+    }
+
+    /* Las diapositivas claras quedan por encima de la aurora */
+    .slide { z-index: 1; }
+
+    /* Grano/vibración sutil del wedge diagonal */
+    .slide::after {
+      background: linear-gradient(180deg, var(--blue-2), var(--green));
+      background-size: 100% 220%;
+      animation: wedgeShift 14s ease-in-out infinite;
+      transition: transform 0.9s var(--ease-out-expo), opacity 0.9s var(--ease-out-expo);
+      transform: translateX(6%);
+      opacity: 0;
+    }
+
+    .slide.visible::after { transform: translateX(0); opacity: 0.92; }
+    .cover.visible::after { opacity: 1; }
+
+    @keyframes wedgeShift {
+      0%, 100% { background-position: 0 0%; }
+      50% { background-position: 0 100%; }
+    }
+
+    /* Reveal mejorado: blur + scale + stagger por índice */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px) scale(0.982);
+      filter: blur(7px);
+      transition:
+        opacity 0.72s var(--ease-out-expo),
+        transform 0.72s var(--ease-out-expo),
+        filter 0.72s var(--ease-out-expo);
+      transition-delay: calc(var(--i, 0) * 85ms);
+    }
+
+    .slide.visible .reveal {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* La tarjeta principal respira al entrar */
+    .slide-content { transition: transform 0.7s var(--ease-out-expo); }
+
+    /* Tarjetas: glass + elevación al hover */
+    .visual,
+    .case-box,
+    .criteria-panel,
+    .compare-row,
+    .hitop-tree-board,
+    .hitop-map,
+    .spectrum-core {
+      backdrop-filter: saturate(1.1) blur(2px);
+    }
+
+    .tile,
+    .level,
+    .matrix-row,
+    .spectrum-card,
+    .criteria-panel,
+    .flow-row,
+    .time-block,
+    .hitop-node {
+      transition:
+        transform 0.32s var(--ease-out-expo),
+        box-shadow 0.32s var(--ease-out-expo),
+        border-color 0.32s var(--ease-out-expo);
+      will-change: transform;
+    }
+
+    .tile:hover,
+    .level:hover,
+    .matrix-row:hover,
+    .spectrum-card:hover,
+    .criteria-panel:hover,
+    .hitop-node:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(12, 32, 54, 0.20);
+    }
+
+    .flow-row:hover {
+      transform: translateX(4px);
+      box-shadow: 0 12px 26px rgba(12, 32, 54, 0.14);
+    }
+
+    /* Code pills con brillo */
+    .code-pill,
+    .pyramid-code {
+      box-shadow: 0 6px 16px rgba(15, 111, 198, 0.28);
+    }
+
+    .code-pill.alt { box-shadow: 0 6px 16px rgba(244, 145, 0, 0.32); }
+    .code-pill.ok { box-shadow: 0 6px 16px rgba(15, 159, 110, 0.30); }
+
+    /* Título del cover con shimmer sutil */
+    .cover h1 {
+      background: linear-gradient(100deg, #ffffff 0%, #cdeefb 30%, #ffffff 52%, #a7ead9 74%, #ffffff 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 7s linear infinite;
+    }
+
+    @keyframes shimmerText {
+      to { background-position: 220% center; }
+    }
+
+    /* Orbes flotantes del cover */
+    .cover .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cover .orb.o1 {
+      width: 12vw; height: 12vw;
+      right: 22vw; top: 18vh;
+      background: radial-gradient(circle at 35% 35%, var(--teal), transparent 70%);
+      animation: floaty 9s ease-in-out infinite;
+    }
+
+    .cover .orb.o2 {
+      width: 7vw; height: 7vw;
+      right: 12vw; bottom: 20vh;
+      background: radial-gradient(circle at 40% 40%, var(--green), transparent 70%);
+      animation: floaty 11s ease-in-out infinite reverse;
+    }
+
+    .cover .orb.o3 {
+      width: 5vw; height: 5vw;
+      right: 34vw; bottom: 30vh;
+      background: radial-gradient(circle at 40% 40%, var(--orange), transparent 70%);
+      animation: floaty 7.5s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-2.2vh) translateX(1.2vw); }
+    }
+
+    .cover .slide-content,
+    .cover .brandbar,
+    .cover .footer { position: relative; z-index: 3; }
+
+    /* Botones de caso: gradiente + ripple de foco */
+    .choice {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 8px 20px rgba(23, 64, 109, 0.18);
+    }
+
+    .choice.correct {
+      background: linear-gradient(135deg, var(--ok), var(--green));
+      animation: pop 0.4s var(--ease-out-expo);
+    }
+
+    .choice.incorrect {
+      background: linear-gradient(135deg, var(--danger), #ff5a72);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.94); }
+      55% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .feedback { transition: background 0.3s ease; }
+    .feedback.show { animation: fbIn 0.45s var(--ease-out-expo); }
+
+    @keyframes fbIn {
+      from { opacity: 0.2; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Barra de progreso con glow */
+    .progress-bar {
+      height: 5px;
+      box-shadow: 0 0 14px rgba(11, 208, 217, 0.55);
+    }
+
+    /* Nav dots más vivos */
+    .nav-dots button {
+      transition: transform 0.25s var(--ease-out-expo), background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-dots button:hover { transform: scale(1.5); background: var(--blue); }
+
+    .nav-dots button.active {
+      box-shadow: 0 0 0 4px rgba(244, 145, 0, 0.20);
+    }
+
+    /* Pista de scroll en cover */
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(3.4rem, 8vh, 5rem);
+      z-index: 4;
+      display: grid;
+      justify-items: center;
+      gap: 0.4rem;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.72);
+      font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      animation: hintFloat 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint svg { width: 1.4rem; height: 1.4rem; stroke: var(--mint); }
+
+    @keyframes hintFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+      50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
+    }
+
+    /* Pista de teclado discreta */
+    .kbd-hint {
+      position: fixed;
+      left: 50%;
+      bottom: 0.5rem;
+      z-index: 900;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.35rem;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.show-kbd .kbd-hint { opacity: 1; }
+
+    .kbd-hint kbd {
+      padding: 0.1rem 0.34rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-family: inherit;
+      font-size: 0.6rem;
+    }
+
+    @media (max-height: 600px) {
+      .scroll-hint, .kbd-hint { display: none; }
+    }
+
+    /* Bloque de presentador en la portada */
+    .presenter {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.6rem, 1.4vw, 1rem);
+      margin-top: clamp(0.8rem, 2.2vh, 1.6rem);
+    }
+
+    .presenter .avatar {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: clamp(2.4rem, 4.6vw, 3.2rem);
+      height: clamp(2.4rem, 4.6vw, 3.2rem);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--green));
+      color: var(--navy);
+      font-family: 'Sora', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+      letter-spacing: 0.02em;
+      box-shadow: 0 8px 20px rgba(11, 208, 217, 0.28);
+    }
+
+    .presenter .who {
+      display: grid;
+      gap: 0.12rem;
+    }
+
+    .presenter .who strong {
+      color: var(--white);
+      font-family: 'Sora', 'Inter', sans-serif;
+      font-size: clamp(0.92rem, 1.5vw, 1.22rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .presenter .who span {
+      color: var(--mint);
+      font-size: clamp(0.66rem, 0.95vw, 0.84rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora::before, .aurora::after,
+      .slide::after, .cover h1,
+      .cover .orb, .scroll-hint {
+        animation: none !important;
+      }
+      .reveal { filter: none; transform: none; }
+    }
   </style>
 </head>
 
 <body>
+  <div class="aurora" aria-hidden="true"></div>
   <div class="progress-bar" aria-hidden="true"></div>
   <nav class="nav-dots" aria-label="Navegación de diapositivas"></nav>
+  <div class="kbd-hint" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd><span>navegar</span></div>
 
   <section class="slide cover">
+    <span class="orb o1" aria-hidden="true"></span>
+    <span class="orb o2" aria-hidden="true"></span>
+    <span class="orb o3" aria-hidden="true"></span>
     <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
     <div class="slide-content">
       <span class="kicker reveal">Rotación MINSA · CIE-10</span>
       <h1 class="reveal">Diagnóstico diferencial categorial de depresión</h1>
       <p class="lead reveal">No hay código sin umbral documentado.</p>
       <span class="callout warn reveal">Para primer nivel y CSMC · 45 minutos</span>
+      <div class="presenter reveal">
+        <span class="avatar" aria-hidden="true">JF</span>
+        <span class="who">
+          <strong>MR2 Javier A. Flores-Cohaila</strong>
+          <span>Presentador · MINSA — DSAME</span>
+        </span>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Desliza</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <footer class="footer"><span>Fuente base: OMS CIE-10, 1992</span><span class="pg">1</span></footer>
+  </section>
+
+  <section class="slide">
+    <div class="brandbar"><span class="brand-mark" aria-hidden="true"></span><span>MINSA · DSAME</span></div>
+    <div class="slide-content">
+      <span class="kicker reveal">Objetivos de aprendizaje</span>
+      <h2 class="reveal">Al terminar la sesión, usted podrá:</h2>
+      <div class="mini-grid four reveal">
+        <div class="tile ok"><span class="code-pill ok">1</span><strong>Recorrer el árbol de descarte</strong><span>Aplicar el orden CIE-10: orgánico/sustancia → bipolaridad → depresión → ansiedad → adaptación → distimia/personalidad → mixto residual.</span></div>
+        <div class="tile warn"><span class="code-pill alt">2</span><strong>Comprobar el umbral</strong><span>Diferenciar F32/F33, F41.1, F41.2, F43.2, F34.1 y F60 por síndrome, curso y exclusiones.</span></div>
+        <div class="tile"><span class="code-pill">3</span><strong>Ubicar F41.2 en su lugar</strong><span>Reconocerlo como casilla residual y subumbral, no como cajón de sastre por pereza diagnóstica.</span></div>
+        <div class="tile stop"><span class="code-pill">4</span><strong>Dejar rastro en el HIS</strong><span>Justificar por qué se codifica, se posterga (“no codificar aún”) o se descarta, con nota defendible.</span></div>
+      </div>
+      <span class="callout warn reveal">Meta única: que el médico pueda defender su código, o defender por qué todavía no codifica.</span>
+    </div>
+    <footer class="footer"><span>Objetivos operativos para primer nivel y CSMC.</span><span class="pg">2</span></footer>
   </section>
 
   <section class="slide">
@@ -2529,7 +2929,30 @@
         this.setupWheelNav();
         this.setupNavDots();
         this.setupCases();
+        this.setupReveals();
+        this.setupKbdHint();
+        this.setupPageNumbers();
         this.updateProgress();
+      }
+
+      setupPageNumbers() {
+        this.slides.forEach((slide, index) => {
+          const pg = slide.querySelector(".pg");
+          if (pg) pg.textContent = index + 1;
+        });
+      }
+
+      setupReveals() {
+        this.slides.forEach((slide) => {
+          slide.querySelectorAll(".reveal").forEach((el, i) => {
+            el.style.setProperty("--i", i);
+          });
+        });
+      }
+
+      setupKbdHint() {
+        document.body.classList.add("show-kbd");
+        setTimeout(() => document.body.classList.remove("show-kbd"), 4200);
       }
 
       goToSlide(index) {
@@ -2609,6 +3032,9 @@
               const isCorrect = button.dataset.correct === "true";
               button.classList.add(isCorrect ? "correct" : "incorrect");
               feedback.innerHTML = `<strong>${isCorrect ? "Correcto:" : "Revisar:"}</strong> ${button.dataset.feedback}`;
+              feedback.classList.remove("show");
+              void feedback.offsetWidth;
+              feedback.classList.add("show");
             });
           });
         });
